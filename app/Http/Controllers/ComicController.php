@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class ComicController extends Controller
+{
+
+    public function index()
+    {
+        return view('comics.index', ['comics' => $this->comics()]);
+    }
+
+    public function show($id)
+    {
+        $comics = $this->comics();
+
+        if (!isset($comics[$id])) {
+            abort(404);
+        }
+
+        return view('comics.show', ['comic' => $comics[$id]]);
+    }
+
+    public function filter($genre = null)
+    {
+        $comics = $this->comics();
+
+        if ($genre === null) {
+            return view('comics.filter', [
+                'comics' => $comics,
+                'genre' => null
+            ]);
+        } else {
+            $filteredComics = array_filter($comics, function ($comic) use ($genre) {
+                return strtolower($comic['genre']) === strtolower($genre);
+            });
+
+            return view('comics.filter', [
+                'comics' => $filteredComics,
+                'genre' => $genre
+            ]);
+        }
+    }
+
+    private function comics()
+    {
+        return [
+         1 => ['id' => 1, 'title' => 'Naruto', 'author' => 'Masashi Kishimoto',     'genre' => "Shounen", 'chapter' => 700, 'is_complete' => true],
+         2 => ['id' => 2, 'title' => 'One Piece', 'author' => 'Eiichiro Oda',        'genre' => "Shounen", 'chapter' => 1184, 'is_complete' => false],
+         3 => ['id' => 3, 'title' => 'Dragon Ball', 'author' => 'Akira Toriyama',     'genre' => "Shounen", 'chapter' => 519, 'is_complete' => true],
+         4 => ['id' => 4, 'title' => 'Attack on Titan', 'author' => 'Hajime Isayama',  'genre' => "Shounen", 'chapter' => 139, 'is_complete' => true],
+         5 => ['id' => 5, 'title' => 'Death Note', 'author' => 'Tsugumi Ohba',       'genre' => "Shounen", 'chapter' => 108, 'is_complete' => true],
+         6 => ['id' => 6, 'title' => 'Fruits Basket', 'author' => 'Natsuki Takaya', 'genre' => 'Shoujo', 'chapter' => 136, 'is_complete' => true],
+         7 => ['id' => 7, 'title' => 'Ouran High School Host Club', 'author' => 'Bisco Hatori', 'genre' => 'Shoujo', 'chapter' => 83, 'is_complete' => true],
+         8 => ['id' => 8, 'title' => 'Kimi ni Todoke: From Me to You', 'author' => 'Karuho Shiina', 'genre' => 'Shoujo', 'chapter' => 123, 'is_complete' => true],
+        ];
+    }
+}
