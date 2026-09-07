@@ -4,7 +4,7 @@
 
 @section('content')
  
-    <table border="1" cellpadding="8">
+    <table class = "table table-striped mt-4" border="1" cellpadding="8">
         <tr>
             <th>#</th>
             <th>Title</th>

@@ -5,12 +5,12 @@
 @section('content')
     
     @if ($genre === null)
-    <h4>Genre: All</h4>
+    <h4 class="mt-4">Genre: All</h4>
     @else
-    <h4>Genre: {{ $genre }}</h4>
+    <h4 class="mt-4">Genre: {{ $genre }}</h4>
     @endif
 
-    <table border="1" cellpadding="8">
+    <table class = "table table-striped mt-4" border="1" cellpadding="8">
         <thead>
             <tr>
                 <th>#</th>
@@ -36,6 +36,6 @@
        </tbody>
     </table>
 
-<button><a href="{{ route('comics.index') }}">Back</a></button>
+<button class="btn btn-secondary"><a href="{{ route('comics.index') }}" class="text-decoration-none text-white">Back</a></button>
 
 @endsection
