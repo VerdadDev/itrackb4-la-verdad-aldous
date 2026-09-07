@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My Comic List</title>
-</head>
-<body>
-    
-    <h1>My Comic List</h1>
-    <p>Prepared by: Aldous Malvin Verdad</p>
+@extends('layouts.app')
+
+@section('title', 'Comics')
+
+@section('content')
  
     <table border="1" cellpadding="8">
         <tr>
+            <th>#</th>
             <th>Title</th>
             <th>Author</th>
             <th>Genre</th>
@@ -17,15 +14,19 @@
             <th>Complete</th>
         </tr>
  
-        @foreach ($comics as $comic)
+        @forelse ($comics as $comic)
             <tr>
+                <td>{{ $loop->iteration }}</td>
                 <td><a href="{{ route('comics.show', [$comic['id']]) }}">{{ $comic['title'] }}</a></td>
                 <td><a href="{{ route('comics.show', [$comic['id']]) }}">{{ $comic['author'] }}</a></td>
-                <td><a href="{{ route('comics.filter', [$comic['genre']]) }}">{{ $comic['genre'] }}</a></td>
-                <td><a href="{{ route('comics.show', [$comic['id']]) }}">{{ $comic['chapter'] }}</a></td>
-                <td><a href="{{ route('comics.show', [$comic['id']]) }}">{{ $comic['is_complete'] ? 'Yes' : 'No' }}</a></td>           
+                <td>{{ $comic['genre'] }}</td>
+                <td>{{ $comic['chapter'] }}</td>
+                <td>{{ $comic['is_complete'] ? 'Yes' : 'No' }}</td>           
             </tr>
-        @endforeach
-    </table>
-</body>
+        @empty
+            <tr>
+                <td colspan="5">No comics found.</td>
+            </tr>
+        @endforelse
 
+@endsection

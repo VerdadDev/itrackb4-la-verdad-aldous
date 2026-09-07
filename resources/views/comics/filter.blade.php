@@ -1,15 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Comic Filter</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Filter Comics')
+
+@section('content')
     
-    <h1>Genre: {{ $genre }}</h1>
-    
+    @if ($genre === null)
+    <h4>Genre: All</h4>
+    @else
+    <h4>Genre: {{ $genre }}</h4>
+    @endif
+
     <table border="1" cellpadding="8">
         <thead>
             <tr>
+                <th>#</th>
                 <th>Title</th>
                 <th>Author</th>
                 <th>Genre</th>
@@ -17,16 +21,21 @@
         </thead>
 
         <tbody>
-            @foreach ($comics as $comic)
+            @forelse ($comics as $comic)
                 <tr>
+                    <td>{{ $loop->iteration }}</td>
                     <td>{{ $comic['title'] }}</td>
                     <td>{{ $comic['author'] }}</td>
                     <td>{{ $comic['genre'] }}</td>
                 </tr>
-            @endforeach
+                @empty
+                <tr>
+                    <td colspan="3">No comics found for this genre.</td>
+                </tr>
+            @endforelse
        </tbody>
     </table>
-<p><a href="{{ route('comics.index') }}">Back to Comic List</a></p>
 
-</body>
-</html>
+<button><a href="{{ route('comics.index') }}">Back</a></button>
+
+@endsection
