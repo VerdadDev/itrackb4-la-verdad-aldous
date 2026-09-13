@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Filter Comics')
+@section('title')
 
 @section('content')
     

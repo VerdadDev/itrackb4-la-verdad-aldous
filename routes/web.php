@@ -8,15 +8,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-
-Route::get('/comics/filter', [ComicController::class, 'filter'])->name('comics.filter');
-
 Route::get('/comics/filter/{genre?}', [ComicController::class, 'filter'])->name('comics.filter');
 
-Route::get('/comics', [ComicController::class, 'index'])->name('comics.index');
-
-Route::get('/comics/{id?}', [ComicController::class, 'show'])->name('comics.show');
+Route::resource('comics', ComicController::class)->only('index', 'show');
 
 
 
